@@ -1,8 +1,12 @@
 import whisper
 
-model = whisper.load_model("base")
-wav_path = r"C:\Users\jason\Desktop\python_project\AI_final\textGen\audio\Demo.wav"
+# 加載模型
+model = whisper.load_model("medium")
+
+# 語音轉文字，包含時間戳
+wav_path = r"C:\Users\jason\OneDrive\Desktop\python_project\113_AI\audio\1.wav"
 result = model.transcribe(wav_path, task="transcribe", word_timestamps=True)
 
 for segment in result["segments"]:
-    print(f"[{segment['start']:.2f}s - {segment['end']:.2f}s]: {segment['text']}")
+    for word in segment["words"]:
+        print(f"[{word['start']:.2f} - {word['end']:.2f}] {word['text']}")
